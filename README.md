@@ -1,18 +1,81 @@
-## Getting Started
+# Desafios Java: Abrindo Contas
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+# ****Desafio****
 
-## Folder Structure
+Após o sucesso no desenvolvimento do sistema básico de abertura de contas bancárias, o banco decidiu expandir seus serviços para oferecer diferentes tipos de contas. Agora, além das contas bancárias comuns, eles também oferecem contas poupança. Sua tarefa é implementar a herança e o polimorfismo no sistema, criando uma classe "ContaPoupanca" que herde da classe "ContaBancaria" anteriormente criada. A classe "ContaPoupanca" deve adicionar um novo atributo, taxa de juros, além dos atributos herdados.
 
-The workspace contains two folders by default, where:
+Dica: Utilize a herança para criar a classe "ContaPoupanca" que herde da classe "ContaBancaria" e adicione o atributo "taxaJuros". Implemente o método "exibirInformacoes()" na classe "ContaPoupanca" para exibir as informações adicionais.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+# ****Entrada****
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+O programa deve solicitar ao usuário as informações necessárias para abrir uma conta poupança. A entrada deve ser feita via console (linha de comando) e deve incluir o número da conta (um valor inteiro), o nome do titular (uma sequência de caracteres), o saldo inicial da conta (um valor decimal) e a taxa de juros da conta poupança (um valor decimal).
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+# Saída
 
-## Dependency Management
+Após receber as informações da conta poupança, o programa deve criar um objeto do tipo "ContaPoupanca" e exibir na tela as informações dessa conta, incluindo o número da conta, o nome do titular, o saldo atual e a taxa de juros. A saída deve ser formatada de forma clara e legível para o usuário.
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+# Exemplos
+
+A tabela abaixo apresenta exemplos com alguns dados de entrada e suas respectivas saídas esperadas. Certifique-se de testar seu programa com esses exemplos e com outros casos possíveis.
+
+| Entrada | Saída |
+| --- | --- |
+| Joao    <br> 123456  <br> 1000.0  <br> 1.5 <br>  | Conta Poupanca:     <br> Joao                <br> 123456              <br> Saldo: R$ 1000.0    <br> Taxa de juros: 1.5% <br>  |
+|Ana    <br> 789012 <br> 2500.0 <br> 3.0	   <br>  | Conta Poupanca:     <br> Ana                 <br> 789012              <br> Saldo: R$ 2500.0    <br> Taxa de juros: 3.0% <br> |
+| Maria  <br> 987654 <br> 500.0  <br> 2.5	   <br>| Conta Poupanca:      <br> Maria                <br> 987654               <br> Saldo: R$ 500.0      <br> Taxa de juros: 2.5%  <br> |
+
+# Solução:
+
+```java
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class Desafio {
+
+  public static void main(String[] args) {
+    // Lendo os dados de Entrada:
+    Scanner scanner = new Scanner(System.in);
+    String titular = scanner.next();
+    int numeroConta = scanner.nextInt();
+    double saldo = scanner.nextDouble();
+    double taxaJuros = scanner.nextDouble();
+
+    ContaPoupanca contaPoupanca = new ContaPoupanca(numeroConta, titular, saldo, taxaJuros);
+
+    System.out.println("Conta Poupanca:");
+    contaPoupanca.exibirInformacoes();
+  }
+}
+
+class ContaBancaria {
+  protected int numero;
+  protected String titular;
+  protected double saldo;
+
+  public ContaBancaria(int numero, String titular, double saldo) {
+    this.numero = numero;
+    this.titular = titular;
+    this.saldo = saldo;
+  }
+
+  public void exibirInformacoes() {
+    DecimalFormat decimalFormat = new DecimalFormat("#.0");
+    System.out.println(titular);
+    System.out.println(numero);
+    System.out.println("Saldo: R$ " + decimalFormat.format(saldo));
+  }
+}
+
+class ContaPoupanca extends ContaBancaria {
+  private double taxaJuros;
+
+  public ContaPoupanca(int numero, String titular, double saldo, double taxaJuros) {
+    //TODO: Implementar adequadamente esta sobrecarga de construtores.
+  }
+
+  public void exibirInformacoes() {
+    super.exibirInformacoes();
+    //TODO: Complementar as informações com a taxa de juros.
+  }
+}
+```
